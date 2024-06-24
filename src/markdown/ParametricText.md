@@ -1,6 +1,6 @@
 # Parametric Shell Model
 
-**This parametric shell model is based on a [paper](https://www.mdpi.com/1424-2818/15/3/431) by Gabriela Contreras-Figueroa and José L. Aragón.**
+**This parametric shell model is based on a [paper](https://www.mdpi.com/1424-2818/15/3/431) by Gabriela Contreras-Figueroa and José L. Aragón. This model was built to more closely match the data produced by real shells and contains a number of additional parameters compared to the model in Raup's original paper.**
 
 ---
 

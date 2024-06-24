@@ -5,49 +5,35 @@ import { useControls } from 'leva'
 import { getRotationBy } from '../../components/utilities/utilities'
 import Model from '../Model'
 
-import ParametricText from '../../markdown/ParametricText.md'
+import RaupText from '../../markdown/Raup.md'
 
-export default function ParametricMesh() {
+export default function Raup() {
     const [text, setText] = useState('')
     useEffect(() => {
-        fetch(ParametricText).then(res => res.text()).then(text => setText(text))
+        fetch(RaupText).then(res => res.text()).then(text => setText(text))
     })
 
     const c = useControls("Generating Curve", {
-        b: { value: 0.04, min: 0, max: 2, step: 0.01 },
-        d: { value: 0.45, min: 0.01, max: 2, step: 0.01 },
-        z: { value: 0.34, min: 0, max: 20, step: 0.01 }
+        w: { value: 0.04, min: 0, max: 10, step: 0.01 },
+        d: { value: 0.45, min: 0, max: 10, step: 0.01 },
+        t: { value: 0.34, min: 0, max: 20, step: 0.01 },
+        snug: false
     })
 
     const e = useControls("Cross Section Ellipse", {
-        cs: { value: 1.34, min: 1, max: 5, step: 0.01 },
-        a: { value: 1, min: 0.5, max: 1.5, step: 0.01 },
+        s: { value: 1, min: 0.5, max: 1.5, step: 0.01 },
         phi: { value: 0, min: 0, max: 2 * Math.PI, step: 0.01 }
-    })
-
-    const d = useControls("Decoration Details", {
-        c: { value: 10, min: 0, max: 50, step: 1 },
-        cDepth: { value: 0.1, min: 0, max: 0.2 },
-        n: { value: 1, min: 1, max: 20, step: 1 },
-        nDepth: { value: 0.1, min: 0, max: 0.2 }
     })
 
     const g = useControls("Geometry Settings", {
         detail: { value: 30, min: 2, max: 100, step: 1 },
         sDetail: { value: 100, min: 20, max: 100, step: 1 },
-        s: { value: 12, min: 0, max: 50, step: 1 },
+        l: { value: 12, min: 0, max: 50, step: 1 },
         wireframe: true
     })
 
-    // const controls = useThree((state) => state.controls)
-    // useFrame(() => {
-    //     if (controls !== null) {
-    //         controls.target = new THREE.Vector3(0, 0, g.s * g.z / 2)
-    //     }
-    // })
-
-    const geometry = new THREE.CylinderGeometry(1, 1, 1, g.sDetail, g.s * g.detail, true)
-    const curve = getCurvePoints(e.a, c.b, d.c, g.detail, c.z, c.d, g.s, g.sDetail, e.phi, d.n, d.cDepth, d.nDepth, e.cs)
+    const geometry = new THREE.CylinderGeometry(1, 1, 1, g.sDetail, g.l * g.detail, true)
+    const curve = getCurvePoints(e.s, c.w, g.detail, c.t, c.d, g.l, g.sDetail, e.phi, c.snug)
     const position = geometry.attributes.position;
 
     for (let i = 0; i < position.count; i += 1) {
@@ -78,17 +64,23 @@ function mapMesh(geometry, wireframe) {
     )
 }
 
-function getCurvePoints(a, b, c, detail, z, d, s, sDetail, phi, n, cDepth, nDepth, cs) {
+function getCurvePoints(s, w, detail, t, d, l, sDetail, phi, snug) {
     let curve = []
 
-    for (let i = 0.1; i < s; i += Math.PI / detail) {
-        const lz = i * z
-        const ld = i * d
-        const mult = Math.pow(Math.E, b * i)
-        const dx = mult * ld * Math.sin(i)
-        const dy = mult * ld * Math.cos(i)
-        const pos = new THREE.Vector3(dx, dy, mult * lz)
-        const ic = 1 + cDepth * Math.sin(i * c)
+    for (let i = 0.1; i < l; i += Math.PI / detail) {
+        const lw = i * w
+        const lt = i * t
+        let ld = i * d
+        
+        // if (snug) {
+        //     ld = (1 + Math.sqrt(1 + Math.pow(lt, 2)) + (1 - Math.sqrt(1 + Math.pow(lt, 2))) * lw) / (1 - Math.sqrt(1 + Math.pow(lt, 2)) + (1 + Math.sqrt(1 + Math.pow(lt, 2))) * lw)
+        // }
+
+        const r = (lw - ld) / 2
+        const p = r + ld
+        const dx = p * Math.sin(i)
+        const dy = p * Math.cos(i)
+        const pos = new THREE.Vector3(dx, dy, lt)
 
         let rotation = Math.atan(dy / dx)
         if (((i / Math.PI) % 2) > 1) {
@@ -99,10 +91,9 @@ function getCurvePoints(a, b, c, detail, z, d, s, sDetail, phi, n, cDepth, nDept
         const frac = 2 * Math.PI / sDetail
         for (let j = 0; j <= sDetail; j++) {
             const deg = frac * j
-            const nCurv = 1 + nDepth * Math.sin(deg * n)
-            const px = a * Math.sin(deg) * Math.cos(phi) + Math.cos(deg) * Math.sin(phi)
-            const pz = a * Math.sin(deg) * Math.sin(phi) - Math.cos(deg) * Math.cos(phi)
-            let point = new THREE.Vector3(px * i * nCurv * ic * cs, 0, pz * i * nCurv * ic * cs)
+            const px = s * Math.sin(deg) * Math.cos(phi) + Math.cos(deg) * Math.sin(phi)
+            const pt = s * Math.sin(deg) * Math.sin(phi) - Math.cos(deg) * Math.cos(phi)
+            let point = new THREE.Vector3(px * r, 0, pt * r)
             point.applyQuaternion(qt)
             point.add(pos)
             curve.push(point.x, point.y, point.z)

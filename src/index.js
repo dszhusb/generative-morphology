@@ -12,6 +12,7 @@ import Root from './routes/Root'
 import ErrorPage from './error-page'
 const Parametric = React.lazy(() => import('./routes/shells/Parametric'))
 const ParametricMesh = React.lazy(() => import('./routes/shells/ParametricMesh'))
+const Raup = React.lazy(() => import('./routes/shells/Raup'))
 const About = React.lazy(() => import('./routes/About'))
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "parametricMesh",
         element: <ParametricMesh />
+      },
+      {
+        path: "raup",
+        element: <Raup />
       },
       {
         path: "about",

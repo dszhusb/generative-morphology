@@ -2,12 +2,7 @@
     "Shells": {
         "models": {
             "ParametricMesh": "parametricMesh",
-            "Parametric": "parametric"
-        }
-    },
-    "Plants": {
-        "models": {
-            "Plant": "plant"
+            "Raup": "raup"
         }
     }
 }
