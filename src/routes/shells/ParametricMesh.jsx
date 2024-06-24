@@ -20,9 +20,9 @@ export default function ParametricMesh() {
     })
 
     const e = useControls("Cross Section Ellipse", {
-        cs: { value: 1.34, min: 1, max: 5, step: 0.01 },
         a: { value: 1, min: 0.5, max: 1.5, step: 0.01 },
-        phi: { value: 0, min: 0, max: 2 * Math.PI, step: 0.01 }
+        phi: { value: 0, min: 0, max: 2 * Math.PI, step: 0.01 },
+        psi: { value: 0, min: 0, max: Math.PI, step: 0.01 }
     })
 
     const d = useControls("Decoration Details", {
@@ -39,15 +39,8 @@ export default function ParametricMesh() {
         wireframe: true
     })
 
-    // const controls = useThree((state) => state.controls)
-    // useFrame(() => {
-    //     if (controls !== null) {
-    //         controls.target = new THREE.Vector3(0, 0, g.s * g.z / 2)
-    //     }
-    // })
-
     const geometry = new THREE.CylinderGeometry(1, 1, 1, g.sDetail, g.s * g.detail, true)
-    const curve = getCurvePoints(e.a, c.b, d.c, g.detail, c.z, c.d, g.s, g.sDetail, e.phi, d.n, d.cDepth, d.nDepth, e.cs)
+    const curve = getCurvePoints(e.a, c.b, d.c, g.detail, c.z, c.d, g.s, g.sDetail, e.phi, e.psi, d.n, d.cDepth, d.nDepth)
     const position = geometry.attributes.position;
 
     for (let i = 0; i < position.count; i += 1) {
@@ -55,14 +48,14 @@ export default function ParametricMesh() {
         position.setXYZ(i, curve[f], curve[f + 1], curve[f + 2]);
     }
 
-    const mesh = mapMesh(geometry, g.wireframe)
+    const mesh = MapMesh(geometry, g.wireframe)
 
     return (
         <Model mesh={mesh} text={text} />
     )
 }
 
-function mapMesh(geometry, wireframe) {
+function MapMesh(geometry, wireframe) {
 
     return (
         <mesh castShadow geometry={geometry}>
@@ -78,19 +71,17 @@ function mapMesh(geometry, wireframe) {
     )
 }
 
-function getCurvePoints(a, b, c, detail, z, d, s, sDetail, phi, n, cDepth, nDepth, cs) {
+function getCurvePoints(a, b, c, detail, z, d, s, sDetail, phi, psi, n, cDepth, nDepth) {
     let curve = []
 
     for (let i = 0.1; i < s; i += Math.PI / detail) {
-        const lz = i * z
-        const ld = i * d
         const mult = Math.pow(Math.E, b * i)
-        const dx = mult * ld * Math.sin(i)
-        const dy = mult * ld * Math.cos(i)
-        const pos = new THREE.Vector3(dx, dy, mult * lz)
+        const dx = mult * d * Math.sin(i)
+        const dy = mult * d * Math.cos(i)
+        const pos = new THREE.Vector3(dx, dy, mult * z)
         const ic = 1 + cDepth * Math.sin(i * c)
 
-        let rotation = Math.atan(dy / dx)
+        let rotation = Math.atan(dy / dx) + psi
         if (((i / Math.PI) % 2) > 1) {
             rotation += Math.PI
         }
@@ -100,9 +91,10 @@ function getCurvePoints(a, b, c, detail, z, d, s, sDetail, phi, n, cDepth, nDept
         for (let j = 0; j <= sDetail; j++) {
             const deg = frac * j
             const nCurv = 1 + nDepth * Math.sin(deg * n)
+            const r = Math.pow(Math.E, b * i) - 1 / (i + 1)
             const px = a * Math.sin(deg) * Math.cos(phi) + Math.cos(deg) * Math.sin(phi)
             const pz = a * Math.sin(deg) * Math.sin(phi) - Math.cos(deg) * Math.cos(phi)
-            let point = new THREE.Vector3(px * i * nCurv * ic * cs, 0, pz * i * nCurv * ic * cs)
+            let point = new THREE.Vector3(px * r * nCurv * ic, 0, pz * r * nCurv * ic)
             point.applyQuaternion(qt)
             point.add(pos)
             curve.push(point.x, point.y, point.z)
