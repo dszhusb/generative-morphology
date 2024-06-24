@@ -14,29 +14,29 @@ export default function ParametricMesh() {
     })
 
     const c = useControls("Generating Curve", {
-        b: { value: 0.01, min: 0, max: 2, step: 0.01 },
-        d: { value: 1, min: 0.01, max: 2, step: 0.01 },
-        z: { value: 1, min: 0, max: 20, step: 0.01 }
+        b: { value: 0.04, min: 0, max: 2, step: 0.01 },
+        d: { value: 0.45, min: 0.01, max: 2, step: 0.01 },
+        z: { value: 0.34, min: 0, max: 20, step: 0.01 }
     })
 
     const e = useControls("Cross Section Ellipse", {
-        cs: { value: 1, min: 1, max: 5, step: 0.01 },
+        cs: { value: 1.34, min: 1, max: 5, step: 0.01 },
         a: { value: 1, min: 0.5, max: 1.5, step: 0.01 },
         phi: { value: 0, min: 0, max: 2 * Math.PI, step: 0.01 }
     })
 
     const d = useControls("Decoration Details", {
-        c: { value: 0, min: 0, max: 50, step: 1 },
+        c: { value: 10, min: 0, max: 50, step: 1 },
         cDepth: { value: 0.1, min: 0, max: 0.2 },
         n: { value: 1, min: 1, max: 20, step: 1 },
         nDepth: { value: 0.1, min: 0, max: 0.2 }
     })
 
     const g = useControls("Geometry Settings", {
-        detail: { value: 128, min: 2, max: 100, step: 1 },
-        sDetail: { value: 20, min: 20, max: 100, step: 1 },
+        detail: { value: 30, min: 2, max: 100, step: 1 },
+        sDetail: { value: 100, min: 20, max: 100, step: 1 },
         s: { value: 12, min: 0, max: 50, step: 1 },
-        wireframe: false
+        wireframe: true
     })
 
     // const controls = useThree((state) => state.controls)
