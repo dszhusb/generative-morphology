@@ -4,7 +4,7 @@ import Infobar from '../components/infobar/Infobar'
 
 export default function Model({ mesh, text }) {
     return (
-        <div className="flex flex-column md:flex-row w-screen h-full">
+        <div className="flex flex-column md:flex-row w-screen">
             <div className="flex-1">
                 <Scene>
                     {mesh}

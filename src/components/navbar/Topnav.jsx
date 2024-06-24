@@ -4,9 +4,9 @@ const structure = require('./navigation.json')
 
 export default function Topnav() {
     return (
-        <nav className="flex flex-row">
+        <nav className="flex flex-row items-center">
             <Categories structure={structure} />
-            <Link to="About">About</Link>
+            <Link className="mx-4 text-xl" to="About">About</Link>
         </nav>
     )
 }

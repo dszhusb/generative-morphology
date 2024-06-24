@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
   RouterProvider,
+  Navigate
 } from "react-router-dom";
 
 import Root from './routes/Root'
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
+      { index: true, element: <Navigate to="/parametricMesh" replace /> },
       {
         path: "parametric",
         element: <Parametric />

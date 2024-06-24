@@ -1,13 +1,11 @@
 {
     "Shells": {
-        "icon": "/shell_icon.svg",
         "models": {
             "ParametricMesh": "parametricMesh",
             "Parametric": "parametric"
         }
     },
     "Plants": {
-        "icon": "/shell_icon.svg",
         "models": {
             "Plant": "plant"
         }
