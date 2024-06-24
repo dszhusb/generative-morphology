@@ -14,8 +14,8 @@ export default function ParametricMesh() {
     })
 
     const c = useControls("Generating Curve", {
-        b: { value: 0.01, min: 0, max: 10, step: 0.01 },
-        d: { value: 1, min: 0, max: 10, step: 0.01 },
+        b: { value: 0.01, min: 0, max: 2, step: 0.01 },
+        d: { value: 1, min: 0, max: 2, step: 0.01 },
         z: { value: 1, min: 0, max: 20, step: 0.01 }
     })
 
