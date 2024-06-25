@@ -6,7 +6,7 @@ export default function Topnav() {
     return (
         <nav className="flex flex-row items-center">
             <Categories structure={structure} />
-            <Link className="mx-4 text-xl" to="About">About</Link>
+            <Link className="mx-4 text-xl hover:text-stone-100" to="About">About</Link>
         </nav>
     )
 }
@@ -26,7 +26,7 @@ function Category({ k, v }) {
     return (
         <div key={k + "-category"} onClick={() => setClick(!clicked)} className="h-full items-center">
             <div className="flex flex-row w-fit items-center">
-                <h2 className='mx-4'>{k}</h2>
+                <h2 className='mx-4 hover:text-stone-100'>{k}</h2>
                 {clicked ?
                     <>
                         <div>|</div>
