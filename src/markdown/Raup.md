@@ -1,6 +1,6 @@
 # WDT Shell Model
 
-**The WDT shell model is based on the description given in the book Theoretical Morphology the Concept and its Applications by David Raup. Raup described a simple system based**
+**The WDT shell model is based on the description given in the book Theoretical Morphology the Concept and its Applications by David Raup. Raup described a simple system based on the following parameters**
 
 ---
 

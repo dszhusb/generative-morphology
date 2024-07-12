@@ -13,6 +13,8 @@ import ErrorPage from './error-page'
 const Parametric = React.lazy(() => import('./routes/shells/Parametric'))
 const ParametricMesh = React.lazy(() => import('./routes/shells/ParametricMesh'))
 const Raup = React.lazy(() => import('./routes/shells/Raup'))
+const PlanarBryozoan = React.lazy(() => import('./routes/branches/PlanarBryozoan'))
+const Bryozoan = React.lazy(() => import('./routes/branches/Bryozoan'))
 const About = React.lazy(() => import('./routes/About'))
 
 const router = createBrowserRouter([
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />
+      },
+      {
+        path: "planarBryozoan",
+        element: <PlanarBryozoan />
+      },
+      {
+        path: "Bryozoan",
+        element: <Bryozoan />
       }
     ]
   },

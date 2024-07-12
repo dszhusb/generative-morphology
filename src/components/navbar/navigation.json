@@ -1,8 +1,13 @@
 {
     "Shells": {
         "models": {
-            "ParametricMesh": "parametricMesh",
+            "Parametric": "parametricMesh",
             "Raup": "raup"
+        }
+    },
+    "Branches": {
+        "models": {
+            "Planar Bryozoan": "planarBryozoan"
         }
     }
 }

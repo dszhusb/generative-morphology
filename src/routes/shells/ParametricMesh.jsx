@@ -14,9 +14,9 @@ export default function ParametricMesh() {
     })
 
     const c = useControls("Generating Curve", {
-        b: { value: 0.25, min: 0, max: 1, step: 0.01 },
+        b: { value: 0.16, min: 0, max: 1, step: 0.01 },
         d: { value: 0.45, min: 0.01, max: 2, step: 0.01 },
-        z: { value: 0.34, min: 0, max: 20, step: 0.01 }
+        z: { value: 1.70, min: 0, max: 20, step: 0.01 }
     })
 
     const e = useControls("Cross Section Ellipse", {
@@ -28,8 +28,8 @@ export default function ParametricMesh() {
     const d = useControls("Decoration Details", {
         c: { value: 10, min: 0, max: 50, step: 1 },
         cDepth: { value: 0.1, min: 0, max: 0.2 },
-        n: { value: 1, min: 1, max: 20, step: 1 },
-        nDepth: { value: 0.1, min: 0, max: 0.2 }
+        n: { value: 11, min: 1, max: 20, step: 1 },
+        nDepth: { value: 0.04, min: 0, max: 0.2 }
     })
 
     const g = useControls("Geometry Settings", {

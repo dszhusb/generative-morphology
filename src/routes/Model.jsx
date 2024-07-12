@@ -20,7 +20,7 @@ export default function Model({ mesh, text }) {
             </div>
             <div className="flex-1 w-fill max-h-screen overflow-scroll">
                 <Leva fill flat hideTitleBar />
-                <button class="p-8" onClick={exportBlob}>Download STL (Experimental)</button>
+                <button className="p-8" onClick={exportBlob}>Download STL (Experimental)</button>
                 <Infobar text={text} />
             </div>
         </div>

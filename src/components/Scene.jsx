@@ -7,7 +7,7 @@ export default function Scene(props) {
     return (
         <div id="canvas-container" className="w-full h-full">
             <Canvas camera={{ position: [0, 0, -30] }}>
-                <Stars />
+                <Stars radius={300} />
                 <color attach="background" args={['black']} />
                 <OrbitControls makeDefault minDistance={20} />
                 <Suspense fallback={null}>
