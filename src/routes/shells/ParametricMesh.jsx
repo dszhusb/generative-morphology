@@ -88,7 +88,7 @@ function getCurvePoints(a, b, c, detail, z, d, s, sDetail, phi, psi, n, cDepth, 
         const qt = new THREE.Quaternion().setFromRotationMatrix(getRotationBy(rotation))
 
         const frac = 2 * Math.PI / sDetail
-        for (let j = 0; j <= sDetail; j++) {
+        for (let j = sDetail; j >= 0; j--) {
             const deg = frac * j
             const nCurv = 1 + nDepth * Math.sin(deg * n)
             const r = Math.pow(Math.E, b * i) - 1 / (i + 1)

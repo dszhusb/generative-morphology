@@ -9,6 +9,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.19",
+    "file-saver": "^2.0.5",
     "leva": "^0.9.35",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
